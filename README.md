@@ -1,2 +1,3 @@
-# first-go-api-app
-First REST API app based on go
+# todolist-go-app
+My first on GitHub REST API app based on go
+TodoList
