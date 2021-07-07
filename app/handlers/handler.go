@@ -1,9 +1,8 @@
-package controllers
+package handlers
 
 import "github.com/gin-gonic/gin"
 
-type Handler struct {
-}
+type Handler struct{}
 
 func (handler *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
