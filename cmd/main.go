@@ -20,7 +20,7 @@ func main() {
 
 	db, err := repository.NewPostgresDB(repository.Config{
 		Host:     "kashin.db.elephantsql.com",
-		Port:     "5436",
+		Port:     "5432",
 		Username: "xdbejrew",
 		Password: "fYqD3Kt4xFFkD4vlASBEPd8jJGSMvmxM",
 		DBName:   "xdbejrew",
