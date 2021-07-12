@@ -1,11 +1,13 @@
 package handler
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+)
 
-func (handler *Handler) signUp(context *gin.Context) {
+func (handler *Handler) signUp(ctx *gin.Context) {
 
 }
 
-func (handler *Handler) signIn(context *gin.Context) {
+func (handler *Handler) signIn(ctx *gin.Context) {
 
 }

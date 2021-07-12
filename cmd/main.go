@@ -8,6 +8,7 @@ import (
 	"github.com/Bloodstein/todolist-go-app/app/handler"
 	"github.com/Bloodstein/todolist-go-app/app/repository"
 	"github.com/Bloodstein/todolist-go-app/app/service"
+	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
 
@@ -17,7 +18,20 @@ func main() {
 		log.Fatalf("error initializing config: %s", err.Error())
 	}
 
-	repos := repository.NewRepository()
+	db, err := repository.NewPostgresDB(repository.Config{
+		Host:     "kashin.db.elephantsql.com",
+		Port:     "5436",
+		Username: "xdbejrew",
+		Password: "fYqD3Kt4xFFkD4vlASBEPd8jJGSMvmxM",
+		DBName:   "xdbejrew",
+		SSLMode:  "disable",
+	})
+
+	if err != nil {
+		log.Fatalf("fail to initializing db: %s", err.Error())
+	}
+
+	repos := repository.NewRepository(db)
 	services := service.NewService(repos)
 	handlers := handler.NewHandler(services)
 
