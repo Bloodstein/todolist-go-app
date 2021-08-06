@@ -3,11 +3,14 @@ package main
 // "log"
 import (
 	"log"
+	"os"
+	"strings"
 
 	server "github.com/Bloodstein/todolist-go-app"
 	"github.com/Bloodstein/todolist-go-app/app/handler"
 	"github.com/Bloodstein/todolist-go-app/app/repository"
 	"github.com/Bloodstein/todolist-go-app/app/service"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/spf13/viper"
 )
@@ -18,14 +21,15 @@ func main() {
 		log.Fatalf("error initializing config: %s", err.Error())
 	}
 
-	db, err := repository.NewPostgresDB(repository.Config{
-		Host:     "kashin.db.elephantsql.com",
-		Port:     "5432",
-		Username: "xdbejrew",
-		Password: "fYqD3Kt4xFFkD4vlASBEPd8jJGSMvmxM",
-		DBName:   "xdbejrew",
-		SSLMode:  "disable",
-	})
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("error loading env variables: %s", err.Error())
+	}
+
+	password := os.Getenv("DB_PASSWORD")
+
+	connString := strings.Replace(viper.GetString("connectionString"), "PASSWORD", password, 1)
+
+	db, err := repository.NewPostgresDB(connString)
 
 	if err != nil {
 		log.Fatalf("fail to initializing db: %s", err.Error())
